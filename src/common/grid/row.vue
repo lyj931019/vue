@@ -17,7 +17,7 @@
 <template>
   <div class="row clear">
     <!--这里添加Col-->
-    <solt></solt>
+    <slot></slot>
   </div>
 </template>
 

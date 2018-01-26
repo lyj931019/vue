@@ -4,6 +4,7 @@
     position: relative;
     @include fc($default);
     font-size:2em;
+    /*width: 100%;*/
   }
 </style>
 
@@ -37,6 +38,8 @@
       }
       if(!(this.xl === undefined)){
         this.sizes.push('col-xl-'+this.xl)
+      }else{
+        this.sizes.push('col-xl-12')
       }
       console.log(this.xl);
     }

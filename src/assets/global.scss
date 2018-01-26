@@ -45,13 +45,12 @@ $info:$blue;
 /* 12栅格系统*/
 /* 从大到小，越小优先级越高 */
 $colWidth:(100%/12);
-$screen-xs-min:576px;
-$screen-sm-min:576px;
-$screen-md-min:768px;
-$screen-lg-min:992px;
-$screen-xl-min:1200px;
+$screen-xs-max:576px;
+$screen-sm-max:768px;
+$screen-md-max:992px;
+$screen-lg-max:1200px;
 /* auto: 超大屏幕（大桌面显示器，大于等于 1200px） */
-@media (min-width: $screen-xl-min) {
+@media (min-width: $screen-lg-max) {
   /* 没有任何代码 ， 因为这是默认情况 */
 }
 .col-xl-0{
@@ -94,8 +93,8 @@ $screen-xl-min:1200px;
 .col-xl-12{
   width: $colWidth*12;
 }
-/* lg: 大屏幕（大桌面显示器，大于等于 992px） */
-@media (min-width: $screen-lg-min) {
+/* lg: 大屏幕（大桌面显示器，小于等于 1200px） */
+@media (max-width: $screen-lg-max) {
   .col-lg-0{
     width: 0;
     display: none;
@@ -137,8 +136,8 @@ $screen-xl-min:1200px;
     width: $colWidth*12;
   }
 }
-/* md: 中等屏幕（桌面显示器，大于等于 768） */
-@media (min-width: $screen-md-min) {
+/* md: 中等屏幕（桌面显示器，小于等于 992） */
+@media (max-width: $screen-md-max) {
   .col-md-0{
     width: 0;
     display: none;
@@ -180,8 +179,8 @@ $screen-xl-min:1200px;
     width: $colWidth*12;
   }
 }
-/* sm: 小屏幕（平板，大于等于 576px） */
-@media (min-width: $screen-sm-min) {
+/* sm: 小屏幕（平板，小于等于 768px） */
+@media (max-width:$screen-sm-max) {
   .col-sm-0{
     width: 0;
     display: none;
@@ -223,8 +222,8 @@ $screen-xl-min:1200px;
     width: $colWidth*12;
   }
 }
-/* xs: 超小屏幕（手机，小于 768px） */
-@media (max-width:$screen-xs-min) {
+/* xs: 超小屏幕（手机，小于 576px） */
+@media (max-width:$screen-xs-max) {
   .col-xs-0{
     width: 0;
     display: none;

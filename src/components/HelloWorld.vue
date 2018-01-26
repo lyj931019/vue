@@ -2,7 +2,9 @@
   <div class="hello">
     <img src="../assets/logo.png">
     <Row>
-      <Col>123</Col>
+      <Col xl="2" sm="12" md="6" lg="3">
+        <div class="item" >123</div>
+      </Col>
     </Row>
   </div>
 
@@ -37,4 +39,6 @@ li {
 a {
   color: #42b983;
 }
+
+
 </style>
