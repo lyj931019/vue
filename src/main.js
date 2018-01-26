@@ -6,7 +6,7 @@ import router from './router'
 import Vuex from 'vuex'
 import myComponent from './'
 import LYJ from './utils/lyj.js'
-
+Vue.prototype._ = LYJ;
 Vue.use(Vuex);
 Vue.config.productionTip = false
 
@@ -18,4 +18,4 @@ new Vue({
   template: '<App/>'
 })
 
-Vue.prototype._ = LYJ;
+
