@@ -2,10 +2,11 @@
   <div class="hello">
     <img src="../assets/logo.png">
     <Row>
-      <Col xl="2" sm="12" md="6" lg="3">
-        <div class="item" >123</div>
+      <Col xl="2" sm="12" md="6" lg="4" xs="12" v-for="(index) in items" :key="index">
+        <div class="item" >{{index}}</div>
       </Col>
     </Row>
+    <Btn type="primary">按钮</Btn>
   </div>
 
 </template>
@@ -17,7 +18,8 @@
     components:myComponent,
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App'
+        msg: 'Welcome to Your Vue.js App',
+        items:[1,2,3,4,5,6]
       }
     }
   }

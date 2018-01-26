@@ -9,13 +9,24 @@ fieldset,img{border:0;}
 table{border-collapse:collapse;border-spacing:0;}
 
 $blue:#0093e4;
-$jdRed:#e4393c;
+$jdRed:#e4393c;//京东红
 $green: #17f060;
 $dark: #000000;
 $default: #ffffff;
-$warning : #ffd31b;
-$danger: $jdRed;
-$info:$blue;
+$success:#19be6b;
+$primary: #2d8cf0;
+$lightPrimary:#5cadff;
+$darkPrimary:#2b85e4;
+$warning : #ff9900;
+$danger: #ed3f14;
+$info:#2d8cf0;
+$title:#1c2438;//标题
+$content:#495060;//正文
+$subColor:#80848f;//辅助
+$disabled:#bbbec4;//失效，禁用
+$border:#dddee1;//边框
+$divider:#e9eaec;//分割线
+$Background:#f8f8f9;
 //背景颜色，默认为白色
 @mixin bgc($color:$default){
   background-color: $color;
@@ -24,8 +35,11 @@ $info:$blue;
 @mixin fc($color:$dark){
   color: $color;
 }
+@mixin fstyle(){
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
 //怪异盒子模型，带边框，默认黑色，1px，实线，改宽度的优先级最高，颜色次之
-@mixin ieBox($width:1px,$color:$dark,$type:solid){
+@mixin ieBox($width:1px,$color:$border,$type:solid){
   box-sizing: border-box;
   border:$width $type $color;
 }
@@ -94,7 +108,7 @@ $screen-lg-max:1200px;
   width: $colWidth*12;
 }
 /* lg: 大屏幕（大桌面显示器，小于等于 1200px） */
-@media (max-width: $screen-lg-max) {
+@media (max-width: 1200px) and (min-width:992px) {
   .col-lg-0{
     width: 0;
     display: none;
@@ -137,7 +151,7 @@ $screen-lg-max:1200px;
   }
 }
 /* md: 中等屏幕（桌面显示器，小于等于 992） */
-@media (max-width: $screen-md-max) {
+@media (max-width: 991px) and (min-width:768px){
   .col-md-0{
     width: 0;
     display: none;
@@ -180,7 +194,7 @@ $screen-lg-max:1200px;
   }
 }
 /* sm: 小屏幕（平板，小于等于 768px） */
-@media (max-width:$screen-sm-max) {
+@media (max-width:767px) and (min-width:576px){
   .col-sm-0{
     width: 0;
     display: none;
@@ -223,7 +237,7 @@ $screen-lg-max:1200px;
   }
 }
 /* xs: 超小屏幕（手机，小于 576px） */
-@media (max-width:$screen-xs-max) {
+@media (max-width:575px) {
   .col-xs-0{
     width: 0;
     display: none;

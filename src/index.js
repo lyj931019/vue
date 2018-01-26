@@ -1,6 +1,9 @@
 import {Row, Col} from '@/common/grid';
+import Btn from '@/common/button/button.vue';
 import App from './App'
 
 export default {
-  Row,Col,App
+  App,
+  Row,Col,
+  Btn
 }

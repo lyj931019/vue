@@ -34,14 +34,14 @@
         this.sizes.push('col-md-'+this.md)
       }
       if(!(this.lg === undefined)){
-        this.sizes.push('col-md-'+this.lg)
+        this.sizes.push('col-lg-'+this.lg)
       }
       if(!(this.xl === undefined)){
         this.sizes.push('col-xl-'+this.xl)
       }else{
         this.sizes.push('col-xl-12')
       }
-      console.log(this.xl);
+//      console.log(this.xl);
     }
   }
 </script>

@@ -22,21 +22,11 @@
 </template>
 
 <script>
-  import Col from './col.vue'
   export default {
-    components: {
-      Col
-    },
     name:'Row',
     data(){
       return {
-        items:[
-          {content:1},
-          {content:2},
-          {content:3},
-          {content:4},
-          {content:5},
-        ]
+
       }
     }
   }
