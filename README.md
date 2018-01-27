@@ -51,3 +51,5 @@ git commit -m ''
 ``` 
 git push -u origin master
 ``` 
+# 各组件路径 : src/common/... 
+各组件都有对应的 ***readme.md*** 
