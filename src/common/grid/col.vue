@@ -1,20 +1,11 @@
-<style lang="scss">
-  .col{
-    float: left;
-    position: relative;
-    @include fc($default);
-    font-size:2em;
-    /*width: 100%;*/
-  }
-</style>
-
 <template>
-  <div class="col" :class="sizes">
+  <div class="col" :class="classes">
     <slot></slot>
   </div>
 </template>
 
 <script>
+  const prefixCls= 'col';
   export default {
     name:'myCol',
     props: ['xs','sm','md','lg','xl'],
@@ -23,25 +14,22 @@
         sizes:[]
       }
     },
-    created(){
-      if(!(this.xs === undefined)){
-        this.sizes.push('col-xs-'+this.xs)
+    computed: {
+      classes () {
+        return [
+          `${prefixCls}`,
+          {
+            [`${prefixCls}-xs-${this.xs}`]: !!this.xs,
+            [`${prefixCls}-sm-${this.sm}`]: !!this.sm,
+            [`${prefixCls}-md-${this.md}`]: !!this.md,
+            [`${prefixCls}-lg-${this.lg}`]: !!this.lg,
+            [`${prefixCls}-xl-${this.xl}`]: !!this.xl,
+
+          }
+        ];
       }
-      if(!(this.sm === undefined)){
-        this.sizes.push('col-sm-'+this.sm)
-      }
-      if(!(this.md === undefined)){
-        this.sizes.push('col-md-'+this.md)
-      }
-      if(!(this.lg === undefined)){
-        this.sizes.push('col-lg-'+this.lg)
-      }
-      if(!(this.xl === undefined)){
-        this.sizes.push('col-xl-'+this.xl)
-      }else{
-        this.sizes.push('col-xl-12')
-      }
-//      console.log(this.xl);
     }
+
   }
 </script>
+
