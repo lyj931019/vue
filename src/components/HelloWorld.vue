@@ -7,7 +7,7 @@
       </Col>
     </Row>
     <br><br><br><br><br>
-    &nbsp;<Btn type="success" size="large" @click="handleClick">按钮</Btn>
+    &nbsp;<Btn type="success" size="large" @btn-click="handleClick">按钮</Btn>
     &nbsp;<Btn type="danger" >按钮</Btn>
     &nbsp;<Btn type="primary" shape="half">按钮</Btn>
     &nbsp;<Btn type="primary" shape="circle">按钮</Btn>
@@ -15,6 +15,25 @@
     <Icon type="android-arrow-forward" style="font-size: 88px;"/>
     <Icon type="android-arrow-forward" style="color:#0093e4"/>
     <Icon type="videocamera" style="color:#0093e4"/>
+    <br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Lwitch @l-switch-change="switchChange">
+    <!--<span slot="open">开启</span>-->
+    <!--<span slot="close">关闭</span>-->
+  </Lwitch>
+
+    <div v-if="choseList.length>0">
+      <div v-for="(tmp,index) in choseList">
+        <div @click="removeChose(index)">
+          {{tmp}}
+        </div>
+      </div>
+    </div>
+    <hr/>
+    <div v-for="(tmp,index) in list">
+      <div @click="addChose(index)">
+        {{tmp}}
+      </div>
+    </div>
   </div>
 
 </template>
@@ -28,12 +47,23 @@
       return {
         msg: 'Welcome to Your Vue.js App',
         items:[1,2,3,4,5,6],
-        i:1
+        i:1,
+        list:['蛋炒饭','西红柿炒番茄','尖椒炒朝天椒',"宫爆鸡丁"],
+        choseList:[]
       }
     },
     methods:{
       handleClick(){
         console.log(this.i++);
+      },
+      addChose(index){
+        this.choseList.push(this.list[index])
+      },
+      removeChose(index){
+        this.choseList.splice(index, 1)
+      },
+      switchChange(status){
+        console.log(status);
       }
     }
   }
@@ -52,5 +82,6 @@
   .row{
     height: 100px;
   }
+
 
 </style>

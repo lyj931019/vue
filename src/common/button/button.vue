@@ -58,7 +58,7 @@
     */
     methods:{
       handleClick (event) {
-        this.$emit('click', event);
+        this.$emit('btn-click', event);
       }
     }
 
