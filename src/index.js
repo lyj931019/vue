@@ -2,6 +2,7 @@ import {Row, Col} from '@/common/grid';
 import Btn from '@/common/button';
 import Icon from '@/common/icon';
 import Lwitch from '@/common/lwitch';
+import Radio from '@/common/radio';
 import App from './App'
 
 export default {
@@ -9,5 +10,6 @@ export default {
   Row,Col,
   Btn,
   Icon,
-  Lwitch
+  Lwitch,
+  Radio
 }

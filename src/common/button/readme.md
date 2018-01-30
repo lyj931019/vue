@@ -26,8 +26,8 @@
       2. circle : 圆角,radius-32px,
       3. default :直角,默认,不用写,写了也白写
   + ### long:
-    - **effect** : 改变按钮的display方式,即是否充满整行
-    - **value** : 
-      1. true : display:block,占满整行,
-      2. false : display:inline-block,正常的按钮,默认,不用写,写了也白写
+    - **effect** : 改变按钮的display方式,即是否充满整行。添加时，按钮为块级元素，充满整行
+    ``` 
+      <Btn long>按钮</Btn>
+    ``` 
 

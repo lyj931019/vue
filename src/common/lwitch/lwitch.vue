@@ -1,15 +1,26 @@
 <template>
-  <span class="lwitch" :class="{open:isOpen}" @click="toggle">
+  <span :class="classes" @click="toggle">
     <span class="round-dot" :class="{open:isOpen}"></span>
-    <!-- 想要支持已定义输入,未完成 -->
-    <!--<slot name="open" v-if="isOpen === true"></slot>-->
-    <!--<slot name="close" v-if="isOpen === false"></slot>-->
+    <!-- 想要支持已定义输入,未完成 ,字太小，意义不大 -->
   </span>
 </template>
 
 <script>
+  import _ from '@/utils/lyj.js';
+  const prefixCls = 'lwitch';
   export default {
     name : 'l-switch',
+    props:{
+      size: {
+        validator (value) {
+          return _.oneOf(value, ['small','large']);
+        }
+      },
+      open:{
+        type:Boolean,
+        default:false
+      }
+    },
     data(){
       return {
         isOpen:false
@@ -20,37 +31,24 @@
         this.isOpen = !this.isOpen;
         this.$emit('l-switch-change', this.isOpen);
       }
+    },
+    computed: {
+      classes () {
+        return [
+          `${prefixCls}`,
+          {
+            [`${this.size}`]: !!this.size,
+            'open':this.isOpen
+          }
+        ];
+      }
+    },
+    beforeMount(){
+      this.isOpen = this.open;
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  .lwitch{
-    display: inline-block;
-    width: 55px;
-    height: 30px;
-    border-radius: 46px;
-    position: relative;
-    @include bgc($subColor);
-    transition: all .2s linear;
-    color: #fff;
-    .round-dot.open{
-      left: 27px;
-    }
-    .round-dot{
-      border-radius: 50%;
-      height: 26px;
-      width: 26px;
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      @include bgc(#fff);
-      transition: all .2s linear;
-    }
-
-  }
-  .lwitch.open{
-    @include bgc($primary);
-  }
 
 </style>
