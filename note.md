@@ -107,7 +107,151 @@ var watchExampleVM = new Vue({
 })
 </script>
 ```
+# :class
+
+## 对象语法
+可以传给 v-bind:class 一个对象，以动态地切换 class：
+```
+<div v-bind:class="{ active: isActive }"></div>
+```
+上面的语法表示 active 这个 class 存在与否将取决于数据属性 isActive 的 truthiness。
+
+可以在对象中传入更多属性来动态切换多个 class。此外，v-bind:class 指令也可以与普通的 class 属性共存。当有如下模板:
+```
+data: {
+  isActive: true,
+  hasError: false
+}
+```
+和如下 data：
+```
+<div class="static"
+     v-bind:class="{ active: isActive, 'text-danger': hasError }">
+</div>
+```
+结果渲染为：
+```
+<div class="static active"></div>
+```
+当 **isActive** 或者 **hasError** 变化时，class 列表将相应地更新。例如，如果 hasError 的值为 true，class 列表将变为 "static active text-danger"
+
+### 绑定的数据对象不必内联定义在模板里：
+```
+<div v-bind:class="classObject"></div>
+```
+```
+data: {
+  classObject: {
+    active: true,
+    'text-danger': false
+  }
+}
+```
+也可以在这里绑定一个返回对象的 **计算属性**
+```
+<div v-bind:class="classObject"></div>
+```
+```
+data: {
+  isActive: true,
+  error: null
+},
+computed: {
+  classObject: function () {
+    return {
+      active: this.isActive && !this.error,
+      'text-danger': this.error && this.error.type === 'fatal'
+    }
+  }
+}
+```
+## 数组语法
+可以把一个数组传给 v-bind:class，以应用一个 class 列表：
+```
+<div v-bind:class="[activeClass, errorClass]"></div>
+```
+```
+data: {
+  activeClass: 'active',
+  errorClass: 'text-danger'
+}
+```
+渲染为：
+```
+<div class="active text-danger"></div>
+```
+可以用 **三元表达式**，根据条件切换列表中的 class：
+```
+<div v-bind:class="[isActive ? activeClass : '', errorClass]"></div>
+```
+这样写将始终添加 errorClass，但是只有在 isActive 是 truthy[1] 时才添加 activeClass。
+
+不过，当有多个条件 class 时这样写有些繁琐。所以在 **数组语法** 中也可以使用 **对象语法**：
+```
+<div v-bind:class="[{ active: isActive }, errorClass]"></div>
+```
+## 用在组件上
+当在一个自定义组件上使用 class 属性时，这些类将被添加到该组件的**根元素**上面。这个元素上已经存在的类**不会被覆盖**。
+
+例如，声明了这个组件：
+```
+Vue.component('my-component', {
+  template: '<p class="foo bar">Hi</p>'
+})
+```
+然后在使用它的时候添加一些 class：
+```
+<my-component class="baz boo"></my-component>
+```
+HTML 将被渲染为:
+```
+<p class="foo bar baz boo">Hi</p>
+```
+对于带数据绑定 class 也**同样适用**：
+```
+<my-component v-bind:class="{ active: isActive }"></my-component>
+```
+当 **isActive** 为 **truthy**时，HTML 将被渲染成为：
+```
+<p class="foo bar active">Hi</p>
+```
+*(truthy 不是 true，详见 MDN 的解释。)*
+
 # :style
+
+## 对象语法
+**v-bind:style** 的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象。CSS 属性名可以用**驼峰式** (camelCase) 或**短横线分隔** (kebab-case，记得用**单引号**括起来) 来命名：
+```
+<div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+```
+```
+data: {
+  activeColor: 'red',
+  fontSize: 30
+}
+```
+直接绑定到一个**样式对象**通常更好，这会让模板更清晰：
+```
+<div v-bind:style="styleObject"></div>
+```
+```
+data: {
+  styleObject: {
+    color: 'red',
+    fontSize: '13px'
+  }
+}
+```
+同样的，对象语法常常结合返回对象的**计算属性**使用。
+
+## 数组语法
+**v-bind:style** 的数组语法可以将多个样式对象应用到同一个元素上：
+``` 
+<div v-bind:style="[baseStyles, overridingStyles]"></div>
+``` 
+
+## 自动添加前缀
+当 **v-bind:style** 使用需要添加 **浏览器引擎前缀** 的 CSS 属性时，如 **transform**，Vue.js 会自动侦测并添加相应的前缀。
 
 ## 多重值
 常用于提供多个带前缀的值，只会渲染数组中最后一个被浏览器支持的值
@@ -149,7 +293,7 @@ Vue 提供了一种方式来表达“这两个元素是完全独立的，不要�
 </template>
 ```
 现在，每次切换时，输入框都将被重新渲染。<br/>  
-<font color=red>**注意**</font>：`<label>` 元素仍然会被高效地复用，因为它们没有添加 key 属性<br/>
+<font style='color:#de3d3e;'>**注意**</font>：`<label>` 元素仍然会被高效地复用，因为它们没有添加 key 属性<br/>
 
 ## v-show
 用法大致与v-if一样,
@@ -206,22 +350,22 @@ var example2 = new Vue({
 > Parent - 0 - Foo <br>
 > Parent - 1 - Bar
 
-## 也可以用 v-for 通过一个对象的属性来迭代
-### 也可以提供第二个的参数为键名：
+### 也可以用 v-for 通过一个对象的属性来迭代
+#### 也可以提供第二个的参数为键名：
 ```
 <div v-for="(value, key) in object">
   {{ key }}: {{ value }}
 </div>
 ```
-### 第三个参数为索引：
+#### 第三个参数为索引：
 ```
 <div v-for="(value, key, index) in object">
   {{ index }}. {{ key }}: {{ value }}
 </div>
 ```
-<font color=red>**注意**</font>：在遍历对象时，是按 Object.keys() 的结果遍历，但是不能保证它的结果在不同的 JavaScript 引擎下是一致的。
+<font style='color:#de3d3e;'>**注意**</font>：在遍历对象时，是按 Object.keys() 的结果遍历，但是不能保证它的结果在不同的 JavaScript 引擎下是一致的。
 
-## key
+### key
 当 Vue.js 用 v-for 正在更新已渲染过的元素列表时，它默认用“就地复用”策略。如果数据项的**顺序**被改变，Vue 将不会移动 DOM 元素来匹配数据项的顺序， 而是简单复用此处每个元素，并且确保它在特定索引下显示已被渲染过的每个元素。
 这个默认的模式是高效的，但是只适用于**不依赖子组件状态或临时 DOM 状态 (例如：表单输入值) 的列表渲染输出**。
 为了给 Vue 一个提示，以便它能跟踪每个节点的身份，从而重用和重新排序现有元素，你需要为每项提供一个唯一 key 属性。**理想的 key 值是每项都有的且唯一的 id**。需要用 v-bind 来绑定动态值 
@@ -231,9 +375,9 @@ var example2 = new Vue({
 </div>
 ```
 
-# 数组更新检测
+## 数组更新检测
 
-## 变异方法
+### 变异方法
 
 Vue 包含一组观察数组的变异方法，会改变被这些方法调用的原始数组,所以它们也将会触发视图更新。这些方法如下：
 * push()
@@ -244,13 +388,13 @@ Vue 包含一组观察数组的变异方法，会改变被这些方法调用的�
 * sort()
 * reverse()
 
-## 替换数组
+### 替换数组
 非变异 (non-mutating method) 方法，例如：filter(), concat() 和 slice() 。这些不会改变原始数组，但**总是返回一个新数组**。<br/>
 当使用非变异方法时，可以用新数组替换旧数组
 ### 提示：
 你可能认为这将导致 Vue 丢弃现有 DOM 并重新渲染整个列表。幸运的是，事实并非如此。Vue 为了使得 DOM 元素得到最大范围的重用而实现了一些智能的、启发式的方法，所以用一个含有相同元素的数组去替换原来的数组是非常高效的操作。
 
-## 注意事项
+### 注意事项
 由于 JavaScript 的限制，Vue 不能检测以下变动的数组：
 1. 当你利用索引直接设置一个项时，例如：vm.items[indexOfItem] = newValue
 2. 当你修改数组的长度时，例如：vm.items.length = newLength
@@ -280,4 +424,123 @@ vm.$set(vm.items, indexOfItem, newValue)
 为了解决第二类问题，你可以使用 splice：
 ```
 vm.items.splice(newLength)
+```
+## 对象更改检测注意事项
+Vue 不能检测对象**属性**的添加或删除：
+```
+var vm = new Vue({
+  data: {
+    a: 1
+  }
+})
+// `vm.a` 现在是响应式的
+
+vm.b = 2
+// `vm.b` 不是响应式的
+```
+对于已经创建的实例，Vue 不能动态添加根级别的响应式属性。但是，可以使用 **Vue.set(object, key, value)** 方法向嵌套对象添加响应式属性。例如，对于：
+```
+var vm = new Vue({
+  data: {
+    userProfile: {
+      name: 'Anika'
+    }
+  }
+})
+```
+你可以添加一个新的 age 属性到嵌套的 userProfile 对象：
+```
+Vue.set(vm.userProfile, 'age', 27)
+```
+还可以使用 vm.$set 实例方法，它只是全局 Vue.set 的别名：
+```
+vm.$set(vm.userProfile, 'age', 27)
+```
+有时可能需要为已有对象赋予*多个*新属性，比如使用 **Object.assign()** 或 _.extend()。在这种情况下，你应该用两个对象的属性创建一个**新**的对象。所以，如果你想添加新的响应式属性，不要像这样：
+```
+Object.assign(vm.userProfile, {
+  age: 27,
+  favoriteColor: 'Vue Green'
+})
+```
+**应该这样做**：
+```
+vm.userProfile = Object.assign({}, vm.userProfile, {
+  age: 27,
+  favoriteColor: 'Vue Green'
+})
+```
+
+## 显示过滤/排序结果
+有时，我们想要显示一个数组的**过滤**或**排序** <font style='color:#de3d3e;'>**副本**</font>，而**不实际改变或重置**原始数据。在这种情况下，可以创建返回过滤或排序数组的计算属性。
+
+例如：
+```
+<li v-for="n in evenNumbers">{{ n }}</li>
+```
+```
+data: {
+  numbers: [ 1, 2, 3, 4, 5 ]
+},
+computed: {
+  evenNumbers: function () {
+    return this.numbers.filter(function (number) {
+      return number % 2 === 0
+    })
+  }
+}
+```
+在计算属性不适用的情况下 *(例如，在嵌套 **v-for** 循环中)* 你可以使用一个 method 方法：
+```
+<li v-for="n in even(numbers)">{{ n }}</li>
+```
+```
+data: {
+  numbers: [ 1, 2, 3, 4, 5 ]
+},
+methods: {
+  even: function (numbers) {
+    return numbers.filter(function (number) {
+      return number % 2 === 0
+    })
+  }
+}
+```
+## 一段取值范围的 v-for
+v-for 也可以取整数。在这种情况下，它将重复多次模板。
+```
+<div>
+  <span v-for="n in 10">{{ n }} </span>
+</div>
+```
+结果：
+> 1 2 3 4 5 6 7 8 9 10
+
+## v-for on a `<template>`
+类似于 v-if，你也可以利用带有 **v-for** 的 `<template>` 渲染多个元素。比如：
+```
+<ul>
+  <template v-for="item in items">
+    <li>{{ item.msg }}</li>
+    <li class="divider"></li>
+  </template>
+</ul>
+```
+## v-for with v-if
+当它们处于同一节点，**v-for** 的<font style='color:#de3d3e;'>优先级</font>比 **v-if** <font style='color:#de3d3e;'>更高</font>，这意味着 **v-if** 将**分别** <font style='color:#de3d3e;'>**重复**</font> 运行于每个 **v-for** 循环中。当你想为仅有的一些项渲染节点时，这种优先级的机制会十分有用，如下：
+```
+<li v-for="todo in todos" v-if="!todo.isComplete">
+  {{ todo }}
+</li>
+```
+上面的代码只传递了未完成的 todos。
+
+而如果你的目的是有条件地跳过循环的执行，那么可以将 **v-if** 置于外层元素 (或 `<template>`)上。如：
+```
+<ul v-if="todos.length">
+  <li v-for="todo in todos">
+    {{ todo }}
+  </li>
+</ul>
+<p v-else>No todos left!</p>
 ```
