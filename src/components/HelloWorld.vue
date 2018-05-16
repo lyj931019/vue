@@ -8,7 +8,7 @@
     </Row>
     <br><br><br><br><br>
     &nbsp;<Btn type="success" size="large" @btn-click="handleClick">按钮</Btn>
-    &nbsp;<Btn type="danger" >按钮</Btn>
+    &nbsp;<Btn type="danger" @click="testMessage">按钮</Btn>
     &nbsp;<Btn type="primary" shape="half">按钮</Btn>
     &nbsp;<Btn type="primary" shape="circle">按钮</Btn>
     &nbsp;<Btn type="warning" size="small">按钮</Btn>
@@ -37,12 +37,13 @@
 
     <br>
     <hr>
-    <Radio name="sex">
+    <Radio name="sex" v-model="rdoValue" trueValue="男" falseValue="女">
       <span>男</span>
     </Radio>
-    <Radio name="sex">
+    <Radio name="sex" v-model="rdoValue" trueValue="女" falseValue="男" >
       <span>女</span>
     </Radio>
+    <h1>{{rdoValue}}</h1>
     <hr>
     <br>
     <br><br><br><br><br><br><br>
@@ -63,7 +64,8 @@
         i:1,
         list:['蛋炒饭','西红柿炒番茄','尖椒炒朝天椒',"宫爆鸡丁"],
         choseList:[],
-        value:""
+        value:"",
+        rdoValue:'男',
       }
     },
     methods:{
@@ -83,7 +85,21 @@
 //        this.value = this.value.replace(/[^1-9]/g,'');
 //        console.log(this.value.replace(/D/g,''));
         console.log(this.value.replace(/[^1-9]/g,''));
+      },
+      testMessage(){
+        this.$notification.show({
+          title:'澳门首家线上赌场',
+          body:'女装大佬在线发牌',
+          onClick:function () {
+            alert(123)
+          },
+          onShow:function () {
+            alert('准备打开')
+          },
+        });
+        console.log(this.$Message);
       }
+
     }
   }
 </script>

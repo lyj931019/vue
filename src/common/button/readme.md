@@ -1,5 +1,8 @@
 # 按钮 
-* ## 暂只支持点击事件 : btn-click
+* ## 暂只支持点击事件 : click
+```
+  <Btn type="danger" @click="handleClick">按钮</Btn>
+```
 * ## 可以直接添加class或style改变其样式
 * ## 属性:
   + ### type:

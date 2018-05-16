@@ -9,7 +9,10 @@ import LYJ from './utils/lyj.js'
 Vue.prototype._ = LYJ;
 Vue.use(Vuex);
 Vue.config.productionTip = false
-
+// 获得权限
+Notification.requestPermission();
+Vue.prototype.$Message = myComponent.Message;
+Vue.prototype.$notification = myComponent.Lnotification;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
