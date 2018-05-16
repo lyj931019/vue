@@ -90,14 +90,7 @@
         this.$notification.show({
           title:'澳门首家线上赌场',
           body:'女装大佬在线发牌',
-          onClick:function () {
-            alert(123)
-          },
-          onShow:function () {
-            alert('准备打开')
-          },
         });
-        console.log(this.$Message);
       }
 
     }
