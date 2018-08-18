@@ -1,4 +1,4 @@
-import {Row, Col} from '@/common/grid';
+import {Row, Col,Container} from '@/common/grid';
 import Btn from '@/common/button';
 import Icon from '@/common/icon';
 import Lwitch from '@/common/lwitch';
@@ -6,16 +6,22 @@ import Radio from '@/common/radio';
 import Message from '@/common/message';
 import Lnotification from '@/common/notification';
 import App from './App'
+import TodoList from '@/components/todo/todo-list.vue'
+import TodoItem from '@/components/todo/todo-item.vue'
+import StoreTest from '@/components/store-test'
 
 export default {
   App,
-  Row,Col,
+  Row,Col,Container,
   Btn,
   Icon,
   Lwitch,
   Radio,
   Message,
-  Lnotification
+  Lnotification,
+  TodoList,
+  TodoItem,
+  StoreTest
 }
 // const install = function(Vue, opts = {}) {
 //   if (install.installed) return;

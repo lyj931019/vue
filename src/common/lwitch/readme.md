@@ -2,9 +2,9 @@
 * ## 只支持点击事件，点击切换，参数为开关的状态
   + ### 调用事件：
    ```
-      <Lwitch @l-switch-change="switchChange" />
+      <Lwitch @change="switchChange" />
    ```
-    - l-switch-change为事件名，起始就是点击事件
+    - change为事件名，起始就是点击事件
     - switchChange为自定义函数，参数即开关的状态
 * ## 不可以添加class或style改变样式，整体样式会乱
 * ## 属性: 

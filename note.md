@@ -631,3 +631,118 @@ new Vue({
 ```
 
 # 事件处理
+## 事件处理方法
+示例：
+```
+<div id="example-2">
+  <!-- `greet` 是在下面定义的方法名 -->
+  <button v-on:click="greet">Greet</button>
+</div>
+var example2 = new Vue({
+  el: '#example-2',
+  data: {
+    name: 'Vue.js'
+  },
+  // 在 `methods` 对象中定义方法
+  methods: {
+    greet: function (event) {
+      // `this` 在方法里指向当前 Vue 实例
+      alert('Hello ' + this.name + '!')
+      // `event` 是原生 DOM 事件
+      if (event) {
+        alert(event.target.tagName)
+      }
+    }
+  }
+})
+
+// 也可以用 JavaScript 直接调用方法
+  example2.greet() // => 'Hello Vue.js!'
+```
+
+## 内联处理器中的方法
+
+```
+<div id="example-3">
+  <button v-on:click="say('hi')">Say hi</button>
+  <button v-on:click="say('what')">Say what</button>
+</div>
+new Vue({
+  el: '#example-3',
+  methods: {
+    say: function (message) {
+      alert(message)
+    }
+  }
+})
+```
+
+可以用特殊变量 $event 访问原始的 DOM 事件：
+```
+<button v-on:click="warn('Form cannot be submitted yet.', $event)">
+  Submit
+</button>
+// ...
+methods: {
+  warn: function (message, event) {
+    // 现在我们可以访问原生事件对象
+    if (event) event.preventDefault()
+    alert(message)
+  }
+}
+```
+
+## 事件修饰符
+
+* .stop    
+
+ 阻止单击事件继续传播
+* .prevent   
+
+提交事件不再重载页面
+* .capture
+
+添加事件监听器时使用事件捕获模式,即元素自身触发的事件先在此处处理，然后才交由内部元素进行处理
+* .self
+
+只当在 event.target 是当前元素自身时触发处理函数,即事件不是从内部元素触发的
+* .once
+
+事件将只会触发一次,不像其它只能对原生的 DOM 事件起作用的修饰符，.once 修饰符还能被用到自定义的组件事件上
+* .passive
+```
+<!-- 滚动事件的默认行为 (即滚动行为) 将会立即触发 -->
+<!-- 而不会等待 `onScroll` 完成  -->
+<!-- 这其中包含 `event.preventDefault()` 的情况 -->
+<div v-on:scroll.passive="onScroll">...</div>
+```
+
+**注意**
+1.  使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。因此，用 v-on:click.prevent.self 会阻止所有的点击，而 v-on:click.self.prevent 只会阻止对元素自身的点击。
+2.  不要把 .passive 和 .prevent 一起使用，因为 .prevent 将会被忽略，同时浏览器可能会向你展示一个警告。请记住，.passive 会告诉浏览器你不想阻止事件的默认行为。
+
+
+## 按键修饰符
+```
+<!-- 只有在 `keyCode` 是 13 时调用 `vm.submit()` -->
+<input v-on:keyup.13="submit">
+```
+记住所有的 keyCode 比较困难，所以 Vue 为最常用的按键提供了别名：
+* .enter
+* .tab
+* .delete (捕获“删除”和“退格”键)
+* .esc
+* .space
+* .up
+* .down
+* .left
+* .right
+
+可以通过全局 config.keyCodes 对象自定义按键修饰符别名：
+```
+// 可以使用 `v-on:keyup.f1`
+Vue.config.keyCodes.f1 = 112
+```
+
+## 自动匹配按键修饰符
+可直接将 KeyboardEvent.key 暴露的任意有效按键名转换为 kebab-case 来作为修饰符：

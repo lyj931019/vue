@@ -51,6 +51,7 @@ export default {
       notification.onclose = function() {
         if(opt.onClose && typeof opt.onClose == 'function'){
           opt.onClose();
+          notification = null; // 关闭后清除该对象
         }
       }
       notification.onshow = function() {

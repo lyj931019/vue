@@ -84,7 +84,7 @@
     methods:{
       toggle(){
         this.isOpen = !this.isOpen;
-        this.$emit('l-switch-change', this.isOpen);
+        this.$emit('change', this.isOpen);
       }
     },
     computed: {

@@ -17,7 +17,7 @@
     <Icon type="android-arrow-forward" style="color:#0093e4"/>
     <Icon type="videocamera" style="color:#0093e4"/>
     <br><br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Lwitch open @l-switch-change="switchChange" />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Lwitch open @change="switchChange" />{{switchStatus}}
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Lwitch />
 
     <div v-if="choseList.length>0">
@@ -33,7 +33,7 @@
         {{tmp}}
       </div>
     </div>
-
+    <Container>container</Container>
 
     <br>
     <hr>
@@ -48,6 +48,9 @@
     <br>
     <br><br><br><br><br><br><br>
     <input type="text" @input="justNumber" v-model="value">
+
+    <StoreTest></StoreTest>
+    <TodoList></TodoList>
   </div>
 
 </template>
@@ -66,6 +69,7 @@
         choseList:[],
         value:"",
         rdoValue:'男',
+        switchStatus:true,
       }
     },
     methods:{
@@ -79,7 +83,7 @@
         this.choseList.splice(index, 1)
       },
       switchChange(status){
-        console.log(status);
+        this.switchStatus = status;
       },
       justNumber(){
 //        this.value = this.value.replace(/[^1-9]/g,'');
