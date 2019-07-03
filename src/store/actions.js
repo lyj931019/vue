@@ -1,5 +1,11 @@
 export default {
   async httpGet(){
-    return ;
+    return true;
+  },
+
+  incrementAsync ({ commit }) {
+    setTimeout(() => {
+      commit('increment')
+    }, 1000)
   }
 }

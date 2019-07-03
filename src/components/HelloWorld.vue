@@ -51,12 +51,17 @@
 
     <StoreTest></StoreTest>
     <TodoList></TodoList>
+    <br><br><br><br><br><br>
+    <div style="font-size: 32px;padding: 60px;" @click="add">{{getCount}}</div>
+    <br><br><br><br><br><br>
   </div>
 
 </template>
 
 <script>
   import myComponent from '@/'
+  import { mapActions , mapGetters} from 'vuex'
+
   export default {
     name: 'HelloWorld',
     components:myComponent,
@@ -73,6 +78,9 @@
       }
     },
     methods:{
+      ...mapActions({
+        add: 'incrementAsync' // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
+      }),
       handleClick(){
         console.log(this.i++);
       },
@@ -97,7 +105,10 @@
         });
       }
 
-    }
+    },
+    computed:{
+      ...mapGetters(['getCount'])
+    },
   }
 </script>
 

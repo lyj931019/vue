@@ -4,6 +4,9 @@ const muntation = {
   },
   changeShow(state){
     state.myShow = !state.myShow
+  },
+  increment (state) {
+    state.count++
   }
 };
 export default muntation;
